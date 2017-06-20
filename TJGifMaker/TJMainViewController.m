@@ -278,11 +278,30 @@ static CGFloat KCountPerSecond = 8;//视频转gif，每秒取几张图片
             UIImage *image = [[GIFManager shareInstance] getCoverImage:url atTime:i/KCountPerSecond isKeyImage:NO];
             [imageArr addObject:image];
             
-            //如果需要加入到微信表情，需要对其进行缩放
-//            UIImage *newImg = [[GIFManager shareInstance] scaleImage:image toScale:0.3];
-//            [imageArr addObject:newImg];
+            
+            //微信要求gif为240*240（时间不能太长，不然微信限制表情添加）
+//            if (image.size.height>image.size.width) {
+//                
+//                CGFloat scale = 230.0/image.size.height;
+//                //如果需要加入到微信表情，需要对其进行缩放
+//                UIImage *newImg = [[GIFManager shareInstance] scaleImage:image toScale:scale];
+//                [imageArr addObject:newImg];
+//            }else{
+//                
+//                CGFloat scale = 230.0/image.size.width;
+//                //如果需要加入到微信表情，需要对其进行缩放
+//                UIImage *newImg = [[GIFManager shareInstance] scaleImage:image toScale:scale];
+//                [imageArr addObject:newImg];
+//            }
+            
             
         }
+        
+//        _gif.image = [[GIFManager shareInstance] animatedGIFWithImages:imageArr marginDuration:_gifMargin>0?_gifMargin:KTimeMarginForGif complete:^{
+//            
+//
+//            
+//        }];
         
         __weak typeof(self) weakself = self;
         [[GIFManager shareInstance] composeGIF:imageArr playTime:_gifMargin>0?_gifMargin:KTimeMarginForGif complete:^{

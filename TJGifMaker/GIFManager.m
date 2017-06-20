@@ -130,6 +130,9 @@
     }
     
     animatedImage = [UIImage animatedImageWithImages:imageArr duration:duration];
+    if (completeHandle) {
+        completeHandle();
+    }
 
     return animatedImage;
 }
